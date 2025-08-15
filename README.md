@@ -6,7 +6,7 @@ This repository serves a static frontend in `public/` and exposes an API at `/ap
 
 ## Files of interest
 
-- `index.js` — an Express server used for local development (serves `public/` and exposes `/api/chat`).
+- `api/index.js` — an Express server used for local development (serves `public/` and exposes `/api/chat`).
 - `api/chat.js` — Vercel serverless handler for `/api/chat` (used when deployed to Vercel).
 - `public/` — static frontend (HTML, `script.js`, `style.css`).
 - `vercel.json` — Vercel config included for static + function routing.

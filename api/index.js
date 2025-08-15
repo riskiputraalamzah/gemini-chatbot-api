@@ -15,10 +15,10 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static files (frontend)
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "../public")));
 
 // Routes
-import chatRoute from "./api/chat.js";
+import chatRoute from "./chat.js";
 app.use("/api/chat", chatRoute);
 
 // Dual mode: Local vs Vercel
