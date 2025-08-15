@@ -19,7 +19,8 @@
   chatBox.setAttribute("aria-live", "polite");
 
   // Configuration
-  const API_ENDPOINT = "/api/chat";
+  // Use absolute origin to avoid issues when the app is served under a base path
+  const API_ENDPOINT = (window?.location?.origin || "") + "/api/chat";
   const REQUEST_TIMEOUT_MS = 30000; // 30s
   const GROUP_WINDOW_MS = 5 * 60 * 1000; // 5 minutes for grouping consecutive messages
 
@@ -129,12 +130,17 @@
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
     try {
+      const body = JSON.stringify({
+        messages: [{ role: "user", content: userMessage }],
+      });
+
+      // Debug: show exact request URL and payload (helps diagnose 404s on deploy)
+      console.debug("POST", API_ENDPOINT, body);
+
       const resp = await fetch(API_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: [{ role: "user", content: userMessage }],
-        }),
+        body,
         signal: controller.signal,
       });
 
